@@ -10,13 +10,13 @@ import UIKit
 
 class CafeTableViewController: UITableViewController {
     
-    var cafeNames = ["Berkeley Cafe", "Black Cafe", "Black Ring Coffee", "Camber Coffee", "Coffee Shop", "Friends Cafe", "Hard Rock Cafe", "Hop & Stork Cafe", "La Mo Cafe", "La Perla Cafe", "Mall Cafe", "Nuare Cafe", "Outpost Cafe", "Pink Lane Cafe", "Sheep Cafe", "The Good Life Cafe", "Think Coffee"]
+    var cafeNames = ["baseball","basketball","football","other"]
     
-    var cafeImages = ["berkeleyCafe", "blackCoffee", "blackRingCoffee", "camberCoffee", "coffeeShop", "friendsCafe", "hardRockCafe", "hopStorkCoffee", "laMoCafe", "laPerlaCafe", "mallCafe", "nuareCoffee", "outpostCoffee", "pinkLaneCoffee", "sheepCoffee", "theGoodLifeCoffee", "thinkCoffee"]
+    var cafeImages = ["baseball","basketball","football","other"]
     
-    var cafeLocations = ["Raleigh", "Kiev", "Long Beach", "Newcastle", "Alberta", "New York", "Paris", "Utrecht", "Turlock", "Caba", "Hong Kong", "Kiev", "Nottingham", "Newcastle", "Londres", "Moudon", "New York"]
+    var cafeLocations = ["baseball","basketball","football","other"]
     
-    var cafeTypes = ["Cosy", "Classy", "Cool", "Cosy", "Classy", "Cool", "Cosy", "Classy", "Cool", "Cosy", "Classy", "Cool", "Cosy", "Classy", "Cool", "Cosy", "Classy"]
+    var cafeTypes = ["ball","ball","ball","other"]
     
     var cafeIsVisited = Array(repeating: false, count: 17)
     
@@ -75,17 +75,6 @@ class CafeTableViewController: UITableViewController {
         // Add actions to the menu
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        // Add Call action
-        let callActionHandler = { (action: UIAlertAction!) -> Void in
-            let alertMessage = UIAlertController(title: "Service Unavailable", message: "Sorry, the call feature is not available yet. Please retry later.", preferredStyle: .alert)
-            alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alertMessage, animated: true, completion: nil)
-        }
-        
-        let callAction = UIAlertAction(title: "Call " + "123-000-\(indexPath.row)", style: .default, handler: callActionHandler)
-        
-        optionMenu.addAction(callAction)
-        optionMenu.addAction(cancelAction)
         
         let checkActionTitle = (cafeIsVisited[indexPath.row]) ? "Undo Check in" : "Check in"
         
@@ -119,28 +108,13 @@ class CafeTableViewController: UITableViewController {
             completionHandler(true)
         }
         
-        let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
-            let defaultText = "Just checking in at " + self.cafeNames[indexPath.row]
-            
-            let activityController: UIActivityViewController
-            
-            if let imageToShare = UIImage(named: self.cafeImages[indexPath.row]) {
-                activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
-            } else {
-                activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
-            }
-            
-            self.present(activityController, animated: true, completion: nil)
-            completionHandler(true)
-        }
+
         
         deleteAction.backgroundColor = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
         deleteAction.image = UIImage(named: "delete")
         
-        shareAction.backgroundColor = UIColor(red: 254.0/255.0, green: 149.0/255.0, blue: 38.0/255.0, alpha: 1.0)
-        shareAction.image = UIImage(named: "share")
         
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         
         return swipeConfiguration
     }
